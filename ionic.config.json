@@ -1,0 +1,7 @@
+{
+  "name": "TurkuApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

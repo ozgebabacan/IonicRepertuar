@@ -1,0 +1,60 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>My Expense</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <h2>Add Data</h2>
+    <form (ngSubmit)="saveData()">
+        <ion-item>
+            <ion-label>Türkü Adı</ion-label>
+            <ion-input type="text" placeholder="turku" [(ngModel)]="data.turku" name="turku" required=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Makam</ion-label>
+            <ion-select [(ngModel)]="data.makam" name="makam" required="">
+                <ion-option value="Makam1">Makam1</ion-option>
+                <ion-option value="Makam2">Makam2</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>si</ion-label>
+            <ion-input type="text" placeholder="si" [(ngModel)]="data.si" name="si" required=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>do</ion-label>
+            <ion-input type="text" placeholder="do" [(ngModel)]="data.do" name="do" required=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>mi</ion-label>
+            <ion-input type="text" placeholder="mi" [(ngModel)]="data.mi" name="mi" required=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>fa</ion-label>
+            <ion-input type="text" placeholder="fa" [(ngModel)]="data.fa" name="fa" required=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Giriş</ion-label>
+            <ion-input type="text" placeholder="giris" [(ngModel)]="data.giris" name="giris" required=""></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Söz</ion-label>
+            <ion-input type="text" placeholder="soz" [(ngModel)]="data.soz" name="soz" required=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Nakarat</ion-label>
+            <ion-input type="text" placeholder="nakarat" [(ngModel)]="data.nakarat" name="nakarat" required=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Nota</ion-label>
+            <ion-input type="text" placeholder="nota" [(ngModel)]="data.nota" name="nota" required=""></ion-input>
+        </ion-item>
+        <button ion-button type="submit" block>Save Data</button>
+    </form>
+</ion-content>
