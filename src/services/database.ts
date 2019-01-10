@@ -36,7 +36,6 @@ export class DatabaseService {
     }
 
     getData() {
-        console.log("getData", this.db);
         return new Promise((resolve, reject) => {
             let query = "SELECT * FROM songs ORDER BY rowid DESC";
             this.db.executeSql(query, []).then((data) => {
@@ -97,12 +96,41 @@ export class DatabaseService {
         // }).catch(e => console.log(e));
     }
 
-    deleteData() {
-
+    deleteData(rowid) {
+        return new Promise((resolve, reject) => {
+            this.db.executeSql('DELETE FROM songs WHERE rowid=?', [rowid]).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                console.log(err);
+                this.toast.show(err, '5000', 'center').subscribe(
+                    toast => {
+                        console.log(toast);
+                    }
+                );
+            });
+        });
     }
 
     updateData() {
 
+    }
+
+    addData(data) {
+        return new Promise((resolve, reject) => {
+            this.db.executeSql('INSERT INTO songs VALUES(NULL,?,?,?,?,?,?,?,?,?)',
+                [data.turku, data.makam, data.si, data.do, data.fa, data.giris, data.soz, data.nakarat, data.nota,])
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(e => {
+                    console.log(e);
+                    this.toast.show(e, '5000', 'center').subscribe(
+                        toast => {
+                            console.log(toast);
+                        }
+                    );
+                });
+        });
     }
 
     getDataById(rowid) {
@@ -112,21 +140,21 @@ export class DatabaseService {
             this.db.executeSql(query, [rowid]).then((data) => {
                 let song = new Song;
                 console.log("getDataByIdThen", data.rows.item(0).turku);
-                    // song.turku = data.rows.item(0).turku;
-                    // song.soz = data.rows.item(0).soz;
-                    // song.makam = data.rows.item(0).makam;
-                    // song.si = data.rows.item(0).si;
-                    // song.do = data.rows.item(0).do;
-                    // song.fa = data.rows.item(0).fa;
-                    // song.mi = data.rows.item(0).mi;
-                    // song.nakarat = data.rows.item(0).nakarat;
-                
+                // song.turku = data.rows.item(0).turku;
+                // song.soz = data.rows.item(0).soz;
+                // song.makam = data.rows.item(0).makam;
+                // song.si = data.rows.item(0).si;
+                // song.do = data.rows.item(0).do;
+                // song.fa = data.rows.item(0).fa;
+                // song.mi = data.rows.item(0).mi;
+                // song.nakarat = data.rows.item(0).nakarat;
+
                 resolve(song);
             }).catch((err) => {
                 console.log(err);
                 this.toast.show(err, '5000', 'center').subscribe(
                     toast => {
-                        console.log("data.rows.item(0).turku error",toast);
+                        console.log("data.rows.item(0).turku error", toast);
                     }
                 );
             }); // we deal with errors etc

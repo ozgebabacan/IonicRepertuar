@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { SongPage } from "../song/song";
-import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
 import { EditSongPage } from "../song/editSong/editSong";
 import { AddSongPage } from "../song/addSong/addSong";
 import { Song } from "../../models/song";
@@ -18,7 +17,6 @@ export class SongsPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        private sqlite: SQLite,
         private database: DatabaseService) {
         this.alphabet = this.navParams.get('alphabet')
     }
@@ -54,17 +52,11 @@ export class SongsPage {
     }
 
     deleteData(rowid) {
-        this.sqlite.create({
-            name: 'ionicdb.db',
-            location: 'default'
-        }).then((db: SQLiteObject) => {
-            db.executeSql('DELETE FROM songs WHERE rowid=?', [rowid])
-                .then(res => {
-                    console.log(res);
-                    this.getData();
-                })
-                .catch(e => console.log(e));
-        }).catch(e => console.log(e));
+        this.database.deleteData(rowid).then((result) => {
+            this.getData();
+        }, (error) => {
+            console.log("ERROR: ", error);
+        });
     }
 
     getItems(ev: any) {
