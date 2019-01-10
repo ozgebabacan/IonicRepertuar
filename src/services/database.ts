@@ -139,7 +139,7 @@ export class DatabaseService {
             let query = "SELECT * FROM songs WHERE rowid=?";
             this.db.executeSql(query, [rowid]).then((data) => {
                 let song = new Song;
-                console.log("getDataByIdThen", data.rows.item(0).turku);
+                console.log("getDataByIdThen", data.rows.item(0));
                 // song.turku = data.rows.item(0).turku;
                 // song.soz = data.rows.item(0).soz;
                 // song.makam = data.rows.item(0).makam;

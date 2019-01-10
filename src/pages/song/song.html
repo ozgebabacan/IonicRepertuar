@@ -3,30 +3,41 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>{{data.turku}}</ion-title>
+        <ion-title>{{data}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <div padding class="row responsive-md">
-        <div padding class="col col-3">
-            {{data.si}}
-        </div>
-        <div padding class="col col-3">
-            {{data.fa}}
-        </div>
-        <div padding class="col col-3">
-            {{data.mi}}
-        </div>
-        <div padding class="col col-3">
-            {{data.do}}
-        </div>
-    </div>
-    <div padding class="row responsive-md">
+    <div class="row responsive-md">
         <ion-card>
-            <ion-card-content>
-                {{data.giris}}
+            <ion-card-content class="col col-12">
+                <div padding class="col col-3">
+                    {{data}}
+                </div>
+                <div padding class="col col-3">
+                    {{data}}
+                </div>
+                <div padding class="col col-3">
+                    {{data}}
+                </div>
+                <div padding class="col col-3">
+                    {{data}}
+                </div>
             </ion-card-content>
         </ion-card>
     </div>
+    <div class="row responsive-md">
+        <ion-card>
+            <ion-card-content>
+                {{data}}
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <div class="row responsive-md">
+            <ion-card>
+                <ion-card-content>
+                    {{data}}
+                </ion-card-content>
+            </ion-card>
+        </div>
 </ion-content>
