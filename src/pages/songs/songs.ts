@@ -37,7 +37,7 @@ export class SongsPage {
     }
 
     getData() {
-        this.database.getList().then((data:Song[])=>{ console.log(data); this.songList = data});
+        this.database.getList(this.alphabet).then((data:Song[])=>{ console.log(data); this.songList = data});
     }
 
 

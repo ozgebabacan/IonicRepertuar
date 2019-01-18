@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
+import { SQLite } from "@ionic-native/sqlite";
 import { Song } from "../models/song";
 import { Toast } from '@ionic-native/toast';
 import { Platform } from "ionic-angular";
@@ -11,11 +11,9 @@ const win: any = window;
 export class DatabaseService {
 
     private _db: any;
-    constructor(private sqlite: SQLite,
-        private platform: Platform, private toast: Toast) {
+    constructor(private toast: Toast) {
 
         if (win.sqlitePlugin) {
-            console.log("cordova")
             this._db = win.sqlitePlugin.openDatabase({
                 name: DB_NAME,
                 location: 2,
@@ -31,7 +29,6 @@ export class DatabaseService {
     }
 
     _tryInit() {
-        console.log("_tryInit")
         this.query('CREATE TABLE IF NOT EXISTS songs(rowid INTEGER PRIMARY KEY, turku TEXT, makam TEXT,' +
             'si TEXT,do TEXT,fa TEXT,giris TEXT, soz TEXT, nakarat TEXT,nota TEXT)').catch(err => {
                 console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
@@ -61,14 +58,13 @@ export class DatabaseService {
    * @return {Promise} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
    */
     get(key: string): Promise<any> {
-        console.log("get", key);
         return this.query('SELECT * FROM songs WHERE rowid=? limit 1', [key]).then(data => {
-            console.log(data.res.rows.length);
+           
             if (data.res.rows.length > 0) {
                 return data.res.rows.item(0);
             }
         }).catch((err) => {
-            console.log(err);
+           
             this.toast.show(err, '5000', 'center').subscribe(
                 toast => {
                     console.log(toast);
@@ -82,10 +78,10 @@ export class DatabaseService {
    * @param {string} key the key
    * @return {Promise} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
    */
-    getList(): Promise<any> {
-        console.log("getList");
-        return this.query('SELECT * FROM songs ORDER BY rowid DESC', []).then(data => {
-            console.log(data.res.rows.item(0).turku);
+    getList(alphabet): Promise<any> {
+      
+        return this.query("SELECT * FROM songs where turku like ? ORDER BY rowid DESC", [alphabet+'%']).then(data => {
+           
             let songs = [];
             if (data.res.rows.length > 0) {
                 for (let i = 0; i < data.res.rows.length; i++) {
@@ -105,7 +101,15 @@ export class DatabaseService {
                 }
             }
             return songs;
-        });
+        })
+        .catch((err) => {
+           
+            this.toast.show(err, '5000', 'center').subscribe(
+                toast => {
+                    console.log(toast);
+                }
+            );
+        }); 
     }
 
     /**
