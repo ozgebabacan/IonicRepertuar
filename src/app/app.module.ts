@@ -45,6 +45,7 @@ import { DatabaseService } from '../services/database';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    
     SQLite,
     Toast,
     DatabaseService

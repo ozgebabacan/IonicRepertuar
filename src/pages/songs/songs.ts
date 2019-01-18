@@ -22,6 +22,7 @@ export class SongsPage {
     }
 
     itemTapped(event, item) {
+        console.log("rowid",item.rowid);
         this.navCtrl.setRoot(SongPage , {
             rowid: item.rowid
         });
@@ -36,7 +37,7 @@ export class SongsPage {
     }
 
     getData() {
-        this.database.getData().then((data:Song[])=>{ console.log(data); this.songList = data});
+        this.database.getList().then((data:Song[])=>{ console.log(data); this.songList = data});
     }
 
 
@@ -52,7 +53,7 @@ export class SongsPage {
     }
 
     deleteData(rowid) {
-        this.database.deleteData(rowid).then((result) => {
+        this.database.remove(rowid).then((result) => {
             this.getData();
         }, (error) => {
             console.log("ERROR: ", error);

@@ -9,7 +9,8 @@
 
 <ion-content>
   <ion-list>
-      <button ion-button color="dark" *ngFor="let item of items" outline (click)="itemTapped($event, item)">{{item.title}}</button>
+
+    <button class="col-lg-3" ion-button color="dark" *ngFor="let item of items" outline (click)="itemTapped($event, item)">{{item.title}}</button>
     <!-- <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-start></ion-icon>
       {{item.title}}
@@ -18,5 +19,7 @@
       </div>
     </button> -->
   </ion-list>
-  
+
+
+
 </ion-content>

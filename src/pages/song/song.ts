@@ -6,13 +6,25 @@ import { DatabaseService } from '../../services/database';
 @Component({
     selector: 'page-song',
     templateUrl: 'song.html',
-    styles:[`.col{
-        background: gray;
-        border: think solid black;
-        }`]
+    styles:[`.sbt{
+        width:18%;
+        color:black;
+        text-align:center;
+        padding:inherit;
+        margin:3px;
+        }
+        .sbtMulti{
+        width:100%;
+        color:black;
+        padding:inherit;
+        margin:3px;
+        }
+        .card {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+          }`]
 })
 export class SongPage {
-    data: Song;
+    data: Song = new Song;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -21,6 +33,6 @@ export class SongPage {
     }
 
     getCurrentData(rowid) {
-        this.database.getDataById(rowid).then((data:Song)=>{ this.data = data});
+        this.database.get(rowid).then((data:Song) => { console.log(data); this.data = data});
     }
 }

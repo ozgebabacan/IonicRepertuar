@@ -20,7 +20,7 @@ export class AddSongPage {
   }
 
   saveData() {
-    this.database.addData(this.data).then((res) => {
+    this.database.set(this.data).then((res) => {
       console.log(res);
       this.toast.show('Data saved', '5000', 'center').subscribe(
         toast => {

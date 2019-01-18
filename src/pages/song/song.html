@@ -3,41 +3,63 @@
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>{{data}}</ion-title>
+        <ion-title>{{data.turku}}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
     <div class="row responsive-md">
         <ion-card>
-            <ion-card-content class="col col-12">
-                <div padding class="col col-3">
-                    {{data}}
-                </div>
-                <div padding class="col col-3">
-                    {{data}}
-                </div>
-                <div padding class="col col-3">
-                    {{data}}
-                </div>
-                <div padding class="col col-3">
-                    {{data}}
+
+            <ion-card-content class="">
+                <div>
+                    <div class="row col col-12">
+
+                        <input disabled class="sbt" color="dark" outline [(ngModel)]="data.si">
+                        <input disabled class="sbt" color="dark" outline [(ngModel)]="data.do">
+                        <input disabled class="sbt" color="dark" outline [(ngModel)]="data.fa">
+                        <input disabled class="sbt" color="dark" outline [(ngModel)]="data.mi">
+                        <input disabled class="sbt" color="dark" outline [(ngModel)]="data.nota">
+                    </div>
                 </div>
             </ion-card-content>
         </ion-card>
     </div>
     <div class="row responsive-md">
         <ion-card>
+            <ion-card-header>
+                Giriş
+            </ion-card-header>
             <ion-card-content>
-                {{data}}
+                <div class="row col col-12">
+                    <input disabled class="sbtMulti" color="dark" outline [(ngModel)]="data.giris">
+                </div>
             </ion-card-content>
         </ion-card>
     </div>
     <div class="row responsive-md">
-            <ion-card>
-                <ion-card-content>
-                    {{data}}
-                </ion-card-content>
-            </ion-card>
-        </div>
+        <ion-card>
+            <ion-card-header>
+                Söz
+            </ion-card-header>
+            <ion-card-content>
+                <div class="row col col-12">
+                    <input disabled class="sbtMulti" color="dark" outline [(ngModel)]="data.soz">
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <div class="row responsive-md">
+        <ion-card>
+            <ion-card-header>
+                Nakarat
+            </ion-card-header>
+            <ion-card-content>
+                <div class="row col col-12">
+                    <input disabled class="sbtMulti" color="dark" outline [(ngModel)]="data.nakarat">
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
 </ion-content>
