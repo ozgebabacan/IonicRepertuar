@@ -17,15 +17,16 @@ export class DatabaseService {
             this._db = win.sqlitePlugin.openDatabase({
                 name: DB_NAME,
                 location: 2,
-                createFromLocation: 0
+                createFromLocation: 1
             });
 
         } else {
             console.warn('Storage: SQLite plugin not installed, falling back to WebSQL. Make sure to install cordova-sqlite-storage in production!');
 
             this._db = win.openDatabase(DB_NAME, '1.0', 'database', 5 * 1024 * 1024);
+           // this._tryInit();
         }
-        this._tryInit();
+       
     }
 
     _tryInit() {
@@ -43,9 +44,9 @@ export class DatabaseService {
                         (tx: any, res: any) => resolve({ tx: tx, res: res }),
                         (tx: any, err: any) => reject({ tx: tx, err: err }));
                 },
-                    (err: any) => reject({ err: err }));
+                    (err: any) => reject({ err: JSON.stringify(err) }));
             } catch (err) {
-                reject({ err: err });
+                reject({ err: JSON.stringify(err) });
             }
         });
     }
@@ -65,7 +66,7 @@ export class DatabaseService {
             }
         }).catch((err) => {
            
-            this.toast.show(err, '5000', 'center').subscribe(
+            this.toast.show(JSON.stringify(err), '5000', 'center').subscribe(
                 toast => {
                     console.log(toast);
                 }
@@ -79,9 +80,9 @@ export class DatabaseService {
    * @return {Promise} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
    */
     getList(alphabet): Promise<any> {
-      
+        console.log("getlist start");
         return this.query("SELECT * FROM songs where turku like ? ORDER BY rowid DESC", [alphabet+'%']).then(data => {
-           
+           console.log("getlist",data);
             let songs = [];
             if (data.res.rows.length > 0) {
                 for (let i = 0; i < data.res.rows.length; i++) {
@@ -103,8 +104,8 @@ export class DatabaseService {
             return songs;
         })
         .catch((err) => {
-           
-            this.toast.show(err, '5000', 'center').subscribe(
+           console.log("getlist error",JSON.stringify(err))
+            this.toast.show(JSON.stringify(err), '5000', 'center').subscribe(
                 toast => {
                     console.log(toast);
                 }

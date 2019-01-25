@@ -13,6 +13,7 @@ import { DatabaseService } from "../../services/database";
 export class SongsPage {
     songList: Song[]; //= ["Türkü 1","Türkü 2","Türkü 3"];
     alphabet: string;
+    private fullList: Song[];
 
     constructor(
         public navCtrl: NavController,
@@ -22,8 +23,8 @@ export class SongsPage {
     }
 
     itemTapped(event, item) {
-        console.log("rowid",item.rowid);
-        this.navCtrl.setRoot(SongPage , {
+        console.log("rowid", item.rowid);
+        this.navCtrl.push(SongPage, {
             rowid: item.rowid
         });
     }
@@ -37,7 +38,11 @@ export class SongsPage {
     }
 
     getData() {
-        this.database.getList(this.alphabet).then((data:Song[])=>{ console.log(data); this.songList = data});
+        this.database.getList(this.alphabet).then((data: Song[]) => { this.fullList = data; this.initializeList();});
+    }
+
+    initializeList(){ 
+        this.songList = this.fullList;
     }
 
 
@@ -62,9 +67,10 @@ export class SongsPage {
 
     getItems(ev: any) {
         // Reset items back to all of the items
-        this.getData();
+      this.initializeList();
 
         // set val to the value of the searchbar
+
         const val = ev.target.value;
 
         // if the value is an empty string don't filter the items
@@ -73,6 +79,7 @@ export class SongsPage {
                 this.songList = this.songList.filter((item) => {
                     return (item.turku.toLowerCase().indexOf(val.toLowerCase()) > -1);
                 })
+
             }
         }
     }

@@ -1,14 +1,14 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>My Expense</ion-title>
+        <ion-title>Türkü</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <h2>Add Data</h2>
+    <!-- <h2>Add Data</h2> -->
     <form (ngSubmit)="saveData()">
         <ion-item>
             <ion-label>Türkü Adı</ion-label>
@@ -17,8 +17,7 @@
         <ion-item>
             <ion-label>Makam</ion-label>
             <ion-select [(ngModel)]="data.makam" name="makam" required="">
-                <ion-option value="Makam1">Makam1</ion-option>
-                <ion-option value="Makam2">Makam2</ion-option>
+                <ion-option *ngFor="let item of makamList" [value]="item">{{item}}</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>

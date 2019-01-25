@@ -29,7 +29,11 @@ import { DatabaseService } from '../services/database';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{
+      backButtonText: '',
+      backButtonIcon: 'ios-arrow-back',
+      iconMode: 'md'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -33,6 +33,6 @@ constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.setRoot(SongsPage,{alphabet: item.title});
+    this.navCtrl.push(SongsPage,{alphabet: item.title});
   }
 }

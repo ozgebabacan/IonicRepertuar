@@ -15,28 +15,31 @@
 
 <ion-content>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-    <ion-list>
-        <ion-item>
-            <ion-item-sliding *ngFor="let item of songList">
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-item-sliding *ngFor="let item of songList">
 
-                <button ion-item (click)="itemTapped($event, item)">
-                    <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
-                    {{item.turku}}
-                    <!-- <div class="item-note" item-end>
+                        <button ion-item (click)="itemTapped($event, item)">
+                            <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
+                            {{item.turku}}
+                            <!-- <div class="item-note" item-end>
                                 {{item.note}}
                             </div> -->
-                </button>
+                        </button>
 
-                <ion-item-options side="right">
-                    <button color="primary" (click)="editData(item.rowid)">
-                        <ion-icon name="paper"></ion-icon>
-                    </button>
-                    <button color="danger" (click)="deleteData(item.rowid)">
-                        <ion-icon name="trash"></ion-icon>
-                    </button>
-                </ion-item-options>
-            </ion-item-sliding>
-        </ion-item>
-    </ion-list>
-
+                        <ion-item-options side="right">
+                            <button color="primary" (click)="editData(item.rowid)">
+                                <ion-icon name="paper"></ion-icon>
+                            </button>
+                            <button color="danger" (click)="deleteData(item.rowid)">
+                                <ion-icon name="trash"></ion-icon>
+                            </button>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

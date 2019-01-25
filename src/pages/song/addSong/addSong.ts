@@ -9,9 +9,10 @@ import { Toast } from '@ionic-native/toast';
   templateUrl: 'addsong.html'
 })
 export class AddSongPage {
+  makamList: Array<string> = ['Rast', 'Uşşak', 'Hicaz', 'Uzzal', 'Hümayün', 'Zirgüle', 'Neva', 'Hüseyni', 'Kürdi', 'Nihavent', 'Muhayyer kürdi', 'Buselik'];
 
   data: Song = new Song();// = { songName:"", type:"", description:""};
-
+   
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private database: DatabaseService,
