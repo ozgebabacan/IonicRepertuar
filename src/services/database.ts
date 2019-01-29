@@ -11,22 +11,33 @@ const win: any = window;
 export class DatabaseService {
 
     private _db: any;
-    constructor(private toast: Toast) {
+    constructor(private toast: Toast, private platform: Platform) {
+        console.log("constructor")
+        this.platform.ready().then(() => {
+            console.log("platform.ready()");
+            if (win.sqlitePlugin) {
+                // this._db = win.sqlitePlugin.openDatabase({
+                //     name: DB_NAME,
+                //     location: 2,
+                //      createFromResource: 1
+                // });
+                // this.query('select * from songs').catch(err => {
+                //     console.error('ilk liste getirilemedi!!!', JSON.stringify(err.tx), JSON.stringify(err.err));
+                // });
 
-        if (win.sqlitePlugin) {
-            this._db = win.sqlitePlugin.openDatabase({
-                name: DB_NAME,
-                location: 2,
-                createFromLocation: 1
-            });
+                this._db = win.sqlitePlugin.openDatabase({
+                    name: DB_NAME,
+                    location: "default"
+                });    
+                
+                this._tryInit();
+            } else {
+                console.warn('Storage: SQLite plugin not installed, falling back to WebSQL. Make sure to install cordova-sqlite-storage in production!');
 
-        } else {
-            console.warn('Storage: SQLite plugin not installed, falling back to WebSQL. Make sure to install cordova-sqlite-storage in production!');
-
-            this._db = win.openDatabase(DB_NAME, '1.0', 'database', 5 * 1024 * 1024);
-           // this._tryInit();
-        }
-       
+                this._db = win.openDatabase(DB_NAME, '1.0', 'database', 5 * 1024 * 1024);
+                // this._tryInit();
+            }
+        });
     }
 
     _tryInit() {
@@ -60,12 +71,12 @@ export class DatabaseService {
    */
     get(key: string): Promise<any> {
         return this.query('SELECT * FROM songs WHERE rowid=? limit 1', [key]).then(data => {
-           
+
             if (data.res.rows.length > 0) {
                 return data.res.rows.item(0);
             }
         }).catch((err) => {
-           
+
             this.toast.show(JSON.stringify(err), '5000', 'center').subscribe(
                 toast => {
                     console.log(toast);
@@ -81,13 +92,13 @@ export class DatabaseService {
    */
     getList(alphabet): Promise<any> {
         console.log("getlist start");
-        return this.query("SELECT * FROM songs where turku like ? ORDER BY rowid DESC", [alphabet+'%']).then(data => {
-           console.log("getlist",data);
+        return this.query("SELECT * FROM songs where turku like ? ORDER BY rowid DESC", [alphabet + '%']).then(data => {
+            console.log("getlist", data);
             let songs = [];
             if (data.res.rows.length > 0) {
                 for (let i = 0; i < data.res.rows.length; i++) {
                     songs.push({
-                        rowid:data.res.rows.item(i).rowid,
+                        rowid: data.res.rows.item(i).rowid,
                         makam: data.res.rows.item(i).makam,
                         soz: data.res.rows.item(i).soz,
                         nakarat: data.res.rows.item(i).nakarat,
@@ -103,14 +114,14 @@ export class DatabaseService {
             }
             return songs;
         })
-        .catch((err) => {
-           console.log("getlist error",JSON.stringify(err))
-            this.toast.show(JSON.stringify(err), '5000', 'center').subscribe(
-                toast => {
-                    console.log(toast);
-                }
-            );
-        }); 
+            .catch((err) => {
+                console.error("getlist error", JSON.stringify(err))
+                this.toast.show(JSON.stringify(err), '5000', 'center').subscribe(
+                    toast => {
+                        console.log(toast);
+                    }
+                );
+            });
     }
 
     /**
@@ -142,5 +153,5 @@ export class DatabaseService {
     clear(): Promise<any> {
         return this.query('delete from kv');
     }
- 
+
 }
